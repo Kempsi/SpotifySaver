@@ -15,7 +15,8 @@ def download_song(url, song_name):
         'format': 'bestaudio/best',
         'outtmpl': os.path.join('songs', 'temp.%(ext)s'),
         "noplaylist": True,
-        "cookiefile": os.path.join('cookies', 'cookies.txt'),
+        'no_warnings': True,
+        'cookiefile': 'cookies/cookies.txt',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',

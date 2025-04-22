@@ -11,8 +11,10 @@ def get_youtube_url(query : str):
     yt_dlp_opts = {
         "quiet": True,
         "skip_download": True,
+        'no_warnings': True,
         "default_search": "ytsearch",
         "noplaylist": True,
+        'cookiefile': 'cookies/cookies.txt',
     }
 
     with yt_dlp.YoutubeDL(yt_dlp_opts) as ydl:
