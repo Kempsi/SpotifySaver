@@ -1,5 +1,8 @@
+# Service script to search for YouTube videos urls
+
 import yt_dlp
 
+# Searches for a YouTube video based on a given query and returns the URL of the first result
 def get_youtube_url(query : str):
     yt_dlp_opts = {
         "quiet": True,

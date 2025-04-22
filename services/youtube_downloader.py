@@ -1,3 +1,5 @@
+# Service script to download songs from YouTube
+
 import os
 import yt_dlp
 

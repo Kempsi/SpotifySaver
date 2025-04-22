@@ -1,3 +1,5 @@
+# Service script to export Spotify playlists and saved songs
+
 import spotipy
 import os
 from dotenv import load_dotenv
@@ -42,31 +44,33 @@ def get_saved_tracks():
 # Gets the user's playlist by a name and returns a list of strings with the format "artist - song"
 def get_playlist_tracks(wanted_list):
 
-    offset = 0
     songs_to_save = []
 
-    playlists = sp.current_user_playlists()
+    if wanted_list != "":
 
-    for playlist in playlists['items']:
-        if playlist["name"] == wanted_list:
-            playlist_id = playlist["id"]
+        offset = 0
+        playlists = sp.current_user_playlists()
+        
+        for playlist in playlists['items']:
+            if playlist["name"] == wanted_list:
 
-            # Using a while loop and offset to pass the Spotifys maximum limit of 50 songs per request
-            while True:
+                playlist_id = playlist["id"]
+
+                # Using a while loop and offset to pass the Spotifys maximum limit of 50 songs per request
+                while True:
             
-                results = sp.playlist_tracks(playlist_id, offset=offset, limit=50)
-                offset += 50
-
+                    results = sp.playlist_tracks(playlist_id, offset=offset, limit=50)
+                    offset += 50
                 
-                if len(results['items']) == 0:
-                    break
+                    if len(results['items']) == 0:
+                        break
 
-                for song in results["items"]:
-                    artist = song['track']['artists'][0]['name']
-                    track = song['track']['name']
-                    artist_song = f'{artist} - {track}'
-                    songs_to_save.append(artist_song)
-
+                    for song in results["items"]:
+                        artist = song['track']['artists'][0]['name']
+                        track = song['track']['name']
+                        artist_song = f'{artist} - {track}'
+                        songs_to_save.append(artist_song)
+    
     return songs_to_save
 
 
