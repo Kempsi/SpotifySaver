@@ -1,1 +1,1 @@
-A script that downloads locally your spotify playlists and saved tracks on to your PC.
+A script that allows you to download your Spotify playlists and saved tracks using YouTube, directly to your PC for offline listening.
