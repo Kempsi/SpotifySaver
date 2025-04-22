@@ -1,6 +1,8 @@
 # Main script to save songs from Spotify locally using YouTube as a tool
 
 from turtle import down
+
+from numpy import save
 from services.spotify_exporter import get_playlist_tracks, get_saved_tracks
 from services.youtube_searcher import get_youtube_url
 from services.youtube_downloader import download_song 
@@ -40,20 +42,5 @@ def save_playlist(playlist_name):
 
 
 
-save_playlist("Pendulum")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# save_playlist("Pendulum")
+save_all_songs()

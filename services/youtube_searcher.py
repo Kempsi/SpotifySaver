@@ -22,4 +22,3 @@ def get_youtube_url(query : str):
             return video.get("webpage_url")
         else:   
             return None
-

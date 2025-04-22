@@ -26,6 +26,7 @@ def get_saved_tracks():
     while True:
 
         results = sp.current_user_saved_tracks(offset=offset, limit=50)
+
         offset += 50
 
         if len(results['items']) == 0:
@@ -77,31 +78,3 @@ def get_playlist_tracks(wanted_list):
                     songs_to_save.append(artist_song)
 
     return songs_to_save
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
