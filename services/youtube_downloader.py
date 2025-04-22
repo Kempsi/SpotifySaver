@@ -11,6 +11,12 @@ def refactor_filename(filename):
 # Downloads a song from YouTube and saves it as an MP3 file in the 'songs' directory
 def download_song(url, song_name):
 
+    final_name = os.path.join('songs', refactor_filename(song_name) + '.mp3')
+
+    if os.path.exists(final_name):
+        print(song_name + " already exists. Skipping download.")
+        return
+
     ydl_opts = {
         'format': 'bestaudio/best',
         'outtmpl': os.path.join('songs', 'temp.%(ext)s'),
@@ -34,12 +40,7 @@ def download_song(url, song_name):
             os.remove(temp_path)
 
     temp_name = os.path.join('songs', 'temp.mp3')
-    final_name = os.path.join('songs', refactor_filename(song_name) + '.mp3')
 
     # Rename the temporary file and check for duplicates
     if os.path.exists(temp_name):
-    
-        if os.path.exists(final_name):
-            os.remove(final_name)
-
         os.rename(temp_name, final_name)
