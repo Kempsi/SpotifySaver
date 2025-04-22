@@ -44,33 +44,38 @@ def get_saved_tracks():
 # Gets the user's playlist by a name and returns a list of strings with the format "artist - song"
 def get_playlist_tracks(wanted_list):
 
+    offset = 0
     songs_to_save = []
 
-    if wanted_list != "":
+    if not wanted_list:
+        print("No playlist name was given")
+        return songs_to_save
 
-        offset = 0
-        playlists = sp.current_user_playlists()
-        
-        for playlist in playlists['items']:
-            if playlist["name"] == wanted_list:
+    playlists = sp.current_user_playlists()
 
-                playlist_id = playlist["id"]
+    if len(playlists['items']) == 0:
+        print("No playlists were found")
+        return songs_to_save
 
-                # Using a while loop and offset to pass the Spotifys maximum limit of 50 songs per request
-                while True:
+    for playlist in playlists['items']:
+        if playlist["name"] == wanted_list:
+            playlist_id = playlist["id"]
+
+            # Using a while loop and offset to pass the Spotifys maximum limit of 50 songs per request
+            while True:
             
-                    results = sp.playlist_tracks(playlist_id, offset=offset, limit=50)
-                    offset += 50
+                results = sp.playlist_tracks(playlist_id, offset=offset, limit=50)
+                offset += 50
                 
-                    if len(results['items']) == 0:
-                        break
+                if len(results['items']) == 0:
+                    break
 
-                    for song in results["items"]:
-                        artist = song['track']['artists'][0]['name']
-                        track = song['track']['name']
-                        artist_song = f'{artist} - {track}'
-                        songs_to_save.append(artist_song)
-    
+                for song in results["items"]:
+                    artist = song['track']['artists'][0]['name']
+                    track = song['track']['name']
+                    artist_song = f'{artist} - {track}'
+                    songs_to_save.append(artist_song)
+
     return songs_to_save
 
 

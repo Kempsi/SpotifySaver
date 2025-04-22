@@ -4,6 +4,10 @@ import yt_dlp
 
 # Searches for a YouTube video based on a given query and returns the URL of the first result
 def get_youtube_url(query : str):
+
+    if not query:
+        return None
+
     yt_dlp_opts = {
         "quiet": True,
         "skip_download": True,
