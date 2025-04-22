@@ -8,7 +8,7 @@ SpotifySaver connects to the Spotify Web API to retrieve track data, and uses Yo
 It relies on user authentication via Spotify’s Developer portal and performs the following steps in sequence:
 
 ### Authentication
-1. A developer application must be created at developer.spotify.com.
+1. A developer application must be created at [developer.spotify.com.](https://developer.spotify.com/)
 2. The client ID and client secret from the app are used to authenticate the user.
 3. Upon successful authentication, a .cache file is generated. 
 This file contains an access token that is automatically used for future requests.
