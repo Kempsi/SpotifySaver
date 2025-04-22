@@ -3,8 +3,10 @@ import os
 from dotenv import load_dotenv
 from spotipy.oauth2 import SpotifyOAuth
 
+# Loading .env file for Spotify API credentials
 load_dotenv()
 
+# Setting up Spotify API authentication
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
         client_id = os.getenv("CLIENT_ID"),
         client_secret = os.getenv("CLIENT_SECRET"),
@@ -12,11 +14,13 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
         scope='playlist-read-private user-library-read'))
 
 
+# Gets the user's saved tracks and returns a list of strings with the format "artist - song"
 def get_saved_tracks():
 
     offset = 0
     songs_to_save = []
 
+    # Using a while loop and offset to pass the Spotifys maximum limit of 50 songs per request
     while True:
 
         results = sp.current_user_saved_tracks(offset=offset, limit=50)
@@ -35,6 +39,7 @@ def get_saved_tracks():
 
     return songs_to_save
 
+# Gets the user's playlist by a name and returns a list of strings with the format "artist - song"
 def get_playlist_tracks(wanted_list):
 
     offset = 0
@@ -46,7 +51,7 @@ def get_playlist_tracks(wanted_list):
         if playlist["name"] == wanted_list:
             playlist_id = playlist["id"]
 
-            
+            # Using a while loop and offset to pass the Spotifys maximum limit of 50 songs per request
             while True:
             
                 results = sp.playlist_tracks(playlist_id, offset=offset, limit=50)
