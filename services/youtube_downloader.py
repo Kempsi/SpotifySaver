@@ -1,7 +1,12 @@
 # Service script to download songs from YouTube
 
+import re
 import os
 import yt_dlp
+
+# Makes sure that Windows can handle the file names
+def refactor_filename(filename):
+    return re.sub(r'[<>:"/\\|?*]', '', filename)
 
 # Downloads a song from YouTube and saves it as an MP3 file in the 'songs' directory
 def download_song(url, song_name):
@@ -10,6 +15,7 @@ def download_song(url, song_name):
         'format': 'bestaudio/best',
         'outtmpl': os.path.join('songs', 'temp.%(ext)s'),
         "noplaylist": True,
+        "cookiefile": os.path.join('cookies', 'cookies.txt'),
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
@@ -27,7 +33,7 @@ def download_song(url, song_name):
             os.remove(temp_path)
 
     temp_name = os.path.join('songs', 'temp.mp3')
-    final_name = os.path.join('songs', f'{song_name}.mp3')
+    final_name = os.path.join('songs', refactor_filename(song_name) + '.mp3')
 
     # Rename the temporary file and check for duplicates
     if os.path.exists(temp_name):

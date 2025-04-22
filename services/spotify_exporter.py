@@ -20,6 +20,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
 def get_saved_tracks():
 
     offset = 0
+    counter = 0
     songs_to_save = []
 
     # Using a while loop and offset to pass the Spotifys maximum limit of 50 songs per request
@@ -39,6 +40,10 @@ def get_saved_tracks():
             artist_song = f'{artist} - {track_name}'
             songs_to_save.append(artist_song)
 
+            counter += 1
+            print( str(counter) + ". "+ "Fetched name:", artist_song)
+
+    print("Total fetched song names:", len(songs_to_save))
 
     return songs_to_save
 
